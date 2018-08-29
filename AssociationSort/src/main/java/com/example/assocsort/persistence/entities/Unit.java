@@ -1,10 +1,7 @@
 package com.example.assocsort.persistence.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,13 +16,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class Article {
+public class Unit {
   
-    @Id @GeneratedValue
-    private Long articlenumber;
+    /* E.g. 'Kg' */
+    @Id
+    private String code;
     
-    private String description;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Unit unit;
+    /* E.g., 'Kilogramm' */
+    private String fullName;
+
 }
