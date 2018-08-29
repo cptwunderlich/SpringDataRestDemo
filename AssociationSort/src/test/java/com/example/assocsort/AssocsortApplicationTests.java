@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import com.example.assocsort.persistence.entities.Article;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class AssocsortApplicationTests {
     @Autowired
     private EntityManager em;
@@ -25,7 +27,7 @@ public class AssocsortApplicationTests {
   	}
   	
   	@Test
-  	public void sortByAssociation() {
+  	public void sortByAssociationId() {
   	    List<Article> articles = em.createQuery("SELECT a FROM Article a ORDER BY unit.code DESC", Article.class) //
   	        .getResultList();
   	    
@@ -34,4 +36,13 @@ public class AssocsortApplicationTests {
   	        );
   	}
 
+    @Test
+    public void sortByAssociationProperty() {
+        List<Article> articles = em.createQuery("SELECT a FROM Article a ORDER BY unit.fullName DESC", Article.class) //
+            .getResultList();
+        
+        assertThat(articles).isSortedAccordingTo( //
+            (a, b) -> (a.getUnit().getFullName().compareTo(b.getUnit().getFullName()) * -1) //
+            );
+    }
 }

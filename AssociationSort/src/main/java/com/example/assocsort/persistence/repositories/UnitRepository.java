@@ -1,6 +1,7 @@
 package com.example.assocsort.persistence.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.assocsort.persistence.entities.Unit;
@@ -11,6 +12,6 @@ import com.example.assocsort.persistence.entities.Unit;
  * @since 29.08.2018
  */
 @RepositoryRestResource
-public interface UnitRepository extends JpaRepository<Unit, String> {
+public interface UnitRepository extends JpaRepository<Unit, String>, QuerydslPredicateExecutor<Unit> {
 
 }
